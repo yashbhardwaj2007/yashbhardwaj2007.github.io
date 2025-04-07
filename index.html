@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ethical Shopping - Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(-45deg, #6a11cb, #2575fc);
+            background-size: 400% 400%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        .auth-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 400px;
+            padding: 2rem;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        .auth-form h1 {
+            color: #6a11cb;
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+        }
+
+        .input-group {
+            margin: 1rem 0;
+            position: relative;
+            width: 100%;
+        }
+
+        .input-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6a11cb;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            border-color: #6a11cb;
+            outline: none;
+        }
+
+        button {
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 10px;
+            width: 100%;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-top: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .auth-switch {
+            margin-top: 1.5rem;
+            color: #666;
+        }
+
+        .auth-switch a {
+            color: #6a11cb;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .auth-message {
+            color: white;
+            text-align: center;
+            margin-top: 1.5rem;
+            max-width: 400px;
+            padding: 0 20px;
+        }
+
+        .auth-message p {
+            margin: 0.5rem 0;
+            line-height: 1.5;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Responsive fixes */
+        @media (max-width: 480px) {
+            .auth-container {
+                padding: 1.5rem;
+            }
+            
+            .auth-form h1 {
+                font-size: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .input-group input {
+                padding: 0.8rem 0.8rem 0.8rem 2.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <form class="auth-form" id="loginForm" onsubmit="event.preventDefault(); login()">
+            <h1><i class="fas fa-leaf"></i> Welcome Back</h1>
+            <div class="input-group">
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="loginEmail" placeholder="Email" required>
+            </div>
+            <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="loginPassword" placeholder="Password" required>
+            </div>
+            <button type="submit">Login</button>
+            <p class="auth-switch">Don't have an account? <a href="#" onclick="showRegisterForm()">Register</a></p>
+        </form>
+
+        <form class="auth-form" id="registerForm" style="display:none" onsubmit="event.preventDefault(); register()">
+            <h1><i class="fas fa-leaf"></i> Create Account</h1>
+            <div class="input-group">
+                <i class="fas fa-user"></i>
+                <input type="text" id="registerName" placeholder="Full Name" required>
+            </div>
+            <div class="input-group">
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="registerEmail" placeholder="Email" required>
+            </div>
+            <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="registerPassword" placeholder="Password" required>
+            </div>
+            <button type="submit">Register</button>
+            <p class="auth-switch">Already have an account? <a href="#" onclick="showLoginForm()">Login</a></p>
+        </form>
+    </div>
+    <div class="auth-message">
+        <p>Please sign in to access your ethical shopping assistant.</p>
+        <p>Sessions will expire when you close the browser.</p>
+    </div>
+    <script>
+        // Simple form switching
+        function showLoginForm() {
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('registerForm').style.display = 'none';
+        }
+
+        function showRegisterForm() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'block';
+        }
+
+        // Clear any existing tokens
+        localStorage.removeItem('authToken');
+        sessionStorage.removeItem('authToken');
+
+        async function login() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            if (!email || !password) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            try {
+                const response = await fetch('http://127.0.0.1:5000/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || 'Login failed');
+                }
+                
+                const data = await response.json();
+                
+                // Store token in both session and local storage
+                sessionStorage.setItem('authToken', data.access_token);
+                localStorage.setItem('authToken', data.access_token);
+                
+                // Debugging output
+                console.log('Login successful, token stored. Redirecting...');
+                
+                // Absolute path redirect
+                const baseUrl = window.location.href.split('/').slice(0, -1).join('/');
+                window.location.href = baseUrl + 'AI.html';
+                
+            } catch (error) {
+                console.error('Login error:', error);
+                alert(error.message || 'Login failed. Please try again.');
+            }
+        }
+
+        async function register() {
+            const name = document.getElementById('registerName').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            
+            if (!name || !email || !password) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            try {
+                const response = await fetch('http://127.0.0.1:5000/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password, name })
+                });
+                
+                if (response.ok) {
+                    alert('Registration successful! Please login.');
+                    showLoginForm();
+                    // Clear form
+                    document.getElementById('registerName').value = '';
+                    document.getElementById('registerEmail').value = '';
+                    document.getElementById('registerPassword').value = '';
+                } else {
+                    const data = await response.json();
+                    throw new Error(data.error || 'Registration failed');
+                }
+            } catch (error) {
+                console.error('Registration error:', error);
+                alert(error.message || 'Registration failed. Please try again.');
+            }
+        }
+    </script>
+</body>
+</html>

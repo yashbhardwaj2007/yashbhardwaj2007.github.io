@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Ethical Shopping Assistant</title>
+    <meta name="description" content="Discover sustainable and ethical brands">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="AI.css">
+</head>
+<body>
+    <!-- Dark Mode Toggle -->
+    <button id="themeToggle" class="theme-toggle">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- Auth Button -->
+    <div id="authButton" class="auth-button">
+        <i class="fas fa-user"></i>
+    </div>
+
+    <!-- Canvas Background -->
+    <canvas id="particle-canvas"></canvas>
+
+    <main class="container">
+        <h1><i class="fas fa-leaf"></i> Ethical Shopping Assistant</h1>
+        <p class="subtitle">Discover sustainable brands</p>
+
+        <!-- Search Section -->
+        <div class="input-group">
+            <i class="fas fa-search input-icon"></i>
+            <input type="text" id="query" placeholder="Search products..." list="suggestions">
+            <datalist id="suggestions"></datalist>
+        </div>
+
+        <button onclick="searchBrands()" id="searchButton" aria-label="Search for ethical products">
+            <span id="searchText"><i class="fas fa-search"></i> Find Ethical Brands</span>
+            <span id="searchSpinner" class="spinner" aria-hidden="true"></span>
+        </button>
+
+        <!-- Results -->
+        <div id="result" class="result">
+            <div class="result-title">
+                <i class="fas fa-seedling"></i> Recommendations
+            </div>
+            <div class="result-content" id="resultContent"></div>
+        </div>
+
+        <!-- Loading Skeleton -->
+        <div id="loadingSkeleton" class="loading-skeleton" style="display:none">
+            <div class="skeleton-line"></div>
+            <div class="skeleton-line medium"></div>
+            <div class="skeleton-tags">
+                <span class="skeleton-tag"></span>
+                <span class="skeleton-tag"></span>
+                <span class="skeleton-tag"></span>
+            </div>
+        </div>
+    </main>
+
+    <!-- Chatbot -->
+    <button class="chat-toggle" onclick="toggleChatbot()">
+        <i class="fas fa-comment-dots"></i>
+    </button>
+    <div class="chatbot" id="chatbot">
+        <div class="chat-header" onclick="toggleChatbot()">
+            <span><i class="fas fa-robot"></i> Assistant</span>
+            <i class="fas fa-times"></i>
+        </div>
+        <div class="chat-body" id="chatBox">
+            <div class="message bot-message">
+                <div class="message-sender">AI Assistant</div>
+                <div class="message-content">How can I help?</div>
+            </div>
+        </div>
+        <div class="chat-input-container">
+            <textarea id="chatInput" class="chat-input"></textarea>
+            <button onclick="chatWithAI()" class="chat-send">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <footer class="footer">
+        <span>Created by Yash Bhardwaj</span>
+    </footer>
+
+    <script src="AI.js"></script>
+</body>
+</html>
